@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Instance from "./Instance";
 import { getUserRole } from "../utils/auth";
+import { getUserData } from "../utils/auth";
 import { Link } from "react-router-dom";
 function Home() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const role = getUserRole();
+  const userData = getUserData();
   console.log(role);
   useEffect(() => {
     const fetchBooks = async () => {
@@ -52,7 +54,7 @@ function Home() {
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-        Discover Your Next Favorite Book 📚
+        {userData.name}, Discover Your Next Favorite Book 📚
       </h1>
 
       {role === "admin" && (
@@ -91,6 +93,7 @@ function Home() {
                   {book.title}
                 </h2>
                 <p className="text-sm text-gray-600">by {book.author}</p>
+                <p className="text-sm text-gray-600">{book.genre}</p>
                 <p className="text-sm text-gray-700 mt-2">
                   {book.description?.slice(0, 80)}...
                 </p>

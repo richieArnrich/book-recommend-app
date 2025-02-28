@@ -139,8 +139,8 @@ router.get("/recommended", protect, async (req, res) => {
     // Fetch recommended books based on preferences
     const recommendedBooks = await Book.find({
       $or: [
-        { genre: { $in: genres } }, // Match preferred genres
-        { author: { $in: authors } }, // Match preferred authors
+        { genre: { $in: genres.map((g) => new RegExp(`^${g}$`, "i")) } }, // Case-insensitive genre match
+        { author: { $in: authors.map((a) => new RegExp(`^${a}$`, "i")) } }, // Case-insensitive author match
       ],
     });
 

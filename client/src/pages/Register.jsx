@@ -6,7 +6,7 @@ const genresList = [
   "Fantasy",
   "Science Fiction",
   "Mystery",
-  "Romance",
+  "History",
   "Thriller",
 ];
 const authorsList = [

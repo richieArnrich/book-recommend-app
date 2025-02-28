@@ -4,9 +4,20 @@ export const getUserRole = () => {
 
   try {
     const payload = JSON.parse(atob(token.split(".")[1])); // Decode JWT payload
+    console.log(payload);
     return payload.role || null; // Return role if exists
   } catch (error) {
     console.error("Error decoding token:", error);
     return null;
+  }
+};
+
+export const getUserData = () => {
+  const user = localStorage.getItem("user");
+  if (!user) return null; // No user means no user logged in
+  try {
+    return JSON.parse(user);
+  } catch (err) {
+    console.error("Error parsing user data:", err);
   }
 };

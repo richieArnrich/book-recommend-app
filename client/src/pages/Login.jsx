@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Instance from "./Instance";
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log({ email, password });
     e.preventDefault();
     setError(""); // Clear previous errors
 
@@ -16,10 +16,13 @@ function Login() {
       const response = await Instance.post("/users/login", { email, password });
 
       if (response.status === 200) {
-        // Store token if needed
-        localStorage.setItem("token", response.data.token);
-        alert("login successfull");
-        // Redirect to home page
+        const { token, user } = response.data; // Extract user data from response
+
+        // Store user details and token
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+
+        alert("Login successful");
         navigate("/");
       }
     } catch (err) {
