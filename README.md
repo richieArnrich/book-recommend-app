@@ -37,7 +37,7 @@
    ```bash
    npm run dev
    ```
-   The app will be live at **[http://localhost:5174]**
+   The app will be live at **[http://localhost:5173]**
 
 ## 📌 Usage
 
