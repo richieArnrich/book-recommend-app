@@ -20,6 +20,9 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Routes
 app.use("/books", bookRoutes);
 app.use("/users", userRoutes);
+app.get("/", (req, res) => {
+  res.send("Welcome to the API");
+});
 // Connect to MongoDB
 mongoose
   .connect(
