@@ -69,11 +69,11 @@ const UpdateBook = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      toast.success("Book updated successfully!");
+      alert("Book updated successfully!");
       navigate("/");
     } catch (error) {
       console.error("Error updating book:", error);
-      toast.error("Failed to update book");
+      alert("Failed to update book");
     }
   };
 

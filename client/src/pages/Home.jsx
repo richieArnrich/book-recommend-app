@@ -84,7 +84,7 @@ function Home() {
                 src={
                   book.image?.startsWith("http")
                     ? book.image
-                    : `https://book-recommend-app-api.vercel.app${book.image}`
+                    : `https://book-recommend-app-pcxi.onrender.com${book.image}`
                 }
                 alt={book.title}
                 className="w-full h-48 object-cover"
