@@ -97,7 +97,7 @@ function Home() {
                 src={
                   book.image?.startsWith("http")
                     ? book.image
-                    : `http://localhost${book.image}`
+                    : `https://book-recommend-app-api.vercel.app${book.image}`
                 }
                 alt={book.title}
                 className="w-full h-48 object-cover"
