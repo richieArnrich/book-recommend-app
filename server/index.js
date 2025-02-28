@@ -9,7 +9,12 @@ const userRoutes = require("./routes/userRoutes");
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://book-recommend-app-client.vercel.app",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser()); // Enable cookie parsing
 app.use(express.urlencoded({ extended: true }));
