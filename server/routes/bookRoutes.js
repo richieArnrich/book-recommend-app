@@ -22,14 +22,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-const uploadDir = path.join(__dirname, "uploads");
+const uploadDir = path.join(process.cwd(), "uploads");
 
-// Ensure uploads directory exists
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
   console.log("✅ Uploads directory created!");
 }
-
 // Route to handle book uploads
 router.post(
   "/upload",
