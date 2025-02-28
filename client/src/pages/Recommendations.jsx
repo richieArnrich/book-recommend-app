@@ -32,9 +32,19 @@ const Recommendations = () => {
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-        {userData.name}, Recommended Books for You
-      </h1>
+      {userData ? (
+        <div className="flex flex-col items-center justify-center">
+          <h2 className="text-center text-3xl font-bold mb-4">
+            Welcome, {userData.name}
+          </h2>
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center">
+          <h2 className="text-center text-3xl font-bold mb-4">
+            Welcome, Guest
+          </h2>
+        </div>
+      )}
 
       {loading ? (
         <p className="text-center text-gray-600">Loading...</p>
