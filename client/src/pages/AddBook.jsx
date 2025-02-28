@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Instance from "./Instance";
-import { toast } from "react-toastify";
 
 const AddBook = () => {
   const [formData, setFormData] = useState({
@@ -44,11 +43,11 @@ const AddBook = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      toast.success("Book added successfully!");
+      alert("Book added successfully!");
       navigate("/");
     } catch (error) {
       console.error("Error adding book:", error);
-      toast.error("Failed to add book");
+      alert("Failed to add book");
     }
   };
 

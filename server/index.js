@@ -13,6 +13,7 @@ app.use(
   cors({
     origin: "https://book-recommend-app-client.vercel.app",
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(express.json());
