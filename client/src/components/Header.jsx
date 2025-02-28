@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react"; // Import icons
+import { getUserData } from "../utils/auth";
 
 function Header() {
   const location = useLocation();
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // Mobile menu state
-
+  const userData = getUserData();
   // Check login state on component mount
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -95,6 +96,7 @@ function Header() {
                 </Link>
               )}
             </li>
+            {userData ? <li>{userData.name}</li> : <li></li>}
           </ul>
         </div>
       </div>

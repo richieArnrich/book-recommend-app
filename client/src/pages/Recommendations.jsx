@@ -32,20 +32,6 @@ const Recommendations = () => {
 
   return (
     <div className="container mx-auto p-6">
-      {userData ? (
-        <div className="flex flex-col items-center justify-center">
-          <h2 className="text-center text-3xl font-bold mb-4">
-            Welcome, {userData.name}
-          </h2>
-        </div>
-      ) : (
-        <div className="flex flex-col items-center justify-center">
-          <h2 className="text-center text-3xl font-bold mb-4">
-            Welcome, Guest
-          </h2>
-        </div>
-      )}
-
       {loading ? (
         <p className="text-center text-gray-600">Loading...</p>
       ) : books.length === 0 ? (
