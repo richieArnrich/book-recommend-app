@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/Users");
-
+const JWT_SECRET = "mySeckretkey";
 //  Middleware to verify authentication
 const protect = async (req, res, next) => {
   try {
@@ -10,7 +10,7 @@ const protect = async (req, res, next) => {
     }
 
     // Verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET);
     req.user = await User.findById(decoded.id).select("-password"); // Attach user to request
     next();
   } catch (error) {
