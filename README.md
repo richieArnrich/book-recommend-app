@@ -3,7 +3,6 @@
 - 🔍 **Search for Books** – Find books by title, author, or genre.
 - 📖 **Personalized Recommendations** – Get tailored book suggestions based on user preferences.
 - ⭐ **User Reviews & Ratings** – Rate and review books.
-- 📂 **Bookmark & Save** – Save favorite books for future reference.
 - 🛠️ **Dynamic & Responsive UI** – Built with **Tailwind CSS** for a modern, sleek design.
 - 🔗 **Integration with External APIs** – Fetch book details and metadata.
 
@@ -53,7 +52,7 @@ Contributions are welcome! Follow these steps:
 2. Create a new branch (`feature/your-feature-name`).
 3. Commit changes and push to the branch.
 4. Open a pull request.
+
 ---
 
 **Happy Reading! 📖✨**
-
