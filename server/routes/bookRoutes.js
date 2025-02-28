@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const axios = require("axios");
 const { protect, adminOnly } = require("../middlewares/authMiddleware.js");
 const User = require("../models/Users");
+const fs = require("fs");
 
 const router = express.Router();
 
