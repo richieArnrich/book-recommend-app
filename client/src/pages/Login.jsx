@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Instance from "./Instance";
-import { toast } from "react-toastify";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,30 +18,14 @@ function Login() {
       if (response.status === 200) {
         // Store token if needed
         localStorage.setItem("token", response.data.token);
-
-        toast.success("🎉 Login Successful!", {
-          position: "top-right",
-          autoClose: 2000, // 2 seconds
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          theme: "colored",
-        });
-
-        // Redirect after a short delay
-        setTimeout(() => navigate("/"), 2000);
+        alert("login successfull");
+        // Redirect to home page
+        navigate("/");
       }
     } catch (err) {
-      toast.error("❌ Invalid Credentials! Try again.", {
-        position: "top-right",
-        autoClose: 3000, // 3 seconds
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "colored",
-      });
+      alert("Login failed");
+      console.log(err);
+      setError(err.response?.data?.message || "Login failed. Try again.");
     }
   };
 
@@ -84,9 +67,9 @@ function Login() {
         </form>
         <p className="text-center text-gray-600 text-sm mt-4">
           Don't have an account?{" "}
-          <a href="/register" className="text-blue-600 font-semibold">
+          <Link to="/register" className="text-blue-600 font-semibold">
             Sign Up
-          </a>
+          </Link>
         </p>
       </div>
     </div>

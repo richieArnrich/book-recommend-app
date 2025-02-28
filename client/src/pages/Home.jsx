@@ -32,6 +32,23 @@ function Home() {
       <h2 className="text-center text-red-500 font-semibold">Error: {error}</h2>
     );
 
+  async function handleDelete(id) {
+    try {
+      await Instance.delete(`/books/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      alert("Book Deleted Successfully");
+      window.location.reload();
+      setBooks(books.filter((book) => book.id !== id));
+    } catch (err) {
+      alert("Error deleting book");
+      console.log(err);
+    }
+  }
+
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
@@ -88,13 +105,13 @@ function Home() {
                       to={`/updatebook/${book._id}`}
                       className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
                     >
-                      ✏️ Update
+                      Update
                     </Link>
                     <button
                       onClick={() => handleDelete(book._id)}
                       className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                     >
-                      🗑 Delete
+                      Delete
                     </button>
                   </div>
                 )}

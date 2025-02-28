@@ -12,7 +12,7 @@ function Header() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
-  }, []);
+  }, [location]);
 
   // Logout function
   const handleLogout = () => {

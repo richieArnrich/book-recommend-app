@@ -1,29 +1,54 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Instance from "./Instance";
-import { toast } from "react-toastify";
 
-const AddBook = () => {
+const UpdateBook = () => {
+  const { id } = useParams(); // Get book ID from URL
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     title: "",
     author: "",
     ratings: "",
     genre: "",
     description: "",
-    image: null, // Change to file input
+    image: null,
   });
 
-  const navigate = useNavigate();
+  // Fetch book details when the component loads
+  useEffect(() => {
+    const fetchBook = async () => {
+      try {
+        const response = await Instance.get(`books/single/${id}`);
+        const book = response.data.book;
+        console.log(response);
+        setFormData({
+          title: book.title,
+          author: book.author,
+          ratings: book.ratings,
+          genre: book.genre,
+          description: book.description,
+          image: null, // Image will be updated only if changed
+        });
+      } catch (error) {
+        console.error("Error fetching book details:", error);
+      }
+    };
 
+    fetchBook();
+  }, [id]);
+
+  // Handle input changes
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  // Handle file input change
   const handleFileChange = (e) => {
     setFormData((prev) => ({ ...prev, image: e.target.files[0] }));
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -38,27 +63,28 @@ const AddBook = () => {
     }
 
     try {
-      await Instance.post("/books/upload", data, {
+      await Instance.put(`/books/update/${id}`, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "multipart/form-data",
         },
       });
-      toast.success("Book added successfully!");
+      toast.success("Book updated successfully!");
       navigate("/");
     } catch (error) {
-      console.error("Error adding book:", error);
-      toast.error("Failed to add book");
+      console.error("Error updating book:", error);
+      toast.error("Failed to update book");
     }
   };
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold text-center mb-4">Add New Book</h1>
+      <h1 className="text-2xl font-bold text-center mb-4">Update Book</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
           name="title"
+          value={formData.title}
           placeholder="Book Title"
           className="w-full p-2 border rounded"
           onChange={handleChange}
@@ -67,15 +93,17 @@ const AddBook = () => {
         <input
           type="text"
           name="author"
+          value={formData.author}
           placeholder="Author"
           className="w-full p-2 border rounded"
           onChange={handleChange}
           required
         />
         <input
-          type="text"
+          type="number"
           name="ratings"
-          placeholder="Ratings"
+          value={formData.ratings}
+          placeholder="Ratings (1-5)"
           className="w-full p-2 border rounded"
           onChange={handleChange}
           required
@@ -83,6 +111,7 @@ const AddBook = () => {
         <input
           type="text"
           name="genre"
+          value={formData.genre}
           placeholder="Genre"
           className="w-full p-2 border rounded"
           onChange={handleChange}
@@ -90,6 +119,7 @@ const AddBook = () => {
         />
         <textarea
           name="description"
+          value={formData.description}
           placeholder="Description"
           className="w-full p-2 border rounded"
           onChange={handleChange}
@@ -101,17 +131,16 @@ const AddBook = () => {
           accept="image/*"
           className="w-full p-2 border rounded"
           onChange={handleFileChange}
-          required
         />
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
         >
-          Add Book
+          Update Book
         </button>
       </form>
     </div>
   );
 };
 
-export default AddBook;
+export default UpdateBook;

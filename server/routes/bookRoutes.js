@@ -44,6 +44,7 @@ router.post(
         author,
         genre,
         ratings: ratings || 0,
+        description: req.body.description || "",
         image: imageUrl,
       });
 
@@ -156,6 +157,65 @@ router.get("/recommended", protect, async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: "Server Error", error: error.message });
+  }
+});
+
+//route to update book
+router.put("/update/:id", protect, upload.single("image"), async (req, res) => {
+  try {
+    const bookId = req.params.id;
+    const book = await Book.findById(bookId);
+
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    // Update text fields
+    book.title = req.body.title || book.title;
+    book.author = req.body.author || book.author;
+    book.ratings = req.body.ratings || book.ratings;
+    book.genre = req.body.genre || book.genre;
+    book.description = req.body.description || book.description;
+
+    // Update image only if a new file is uploaded
+    if (req.file) {
+      book.image = `/uploads/${req.file.filename}`;
+    }
+
+    await book.save();
+    res.json({ message: "Book updated successfully", book });
+  } catch (err) {
+    console.error("Error updating book:", err);
+    res.status(500).json({ message: "Server Error", error: err.message });
+  }
+});
+
+//route to get single book based on id
+router.get("/single/:id", async (req, res) => {
+  try {
+    const bookId = req.params.id;
+    const book = await Book.findById(bookId);
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+    res.json({ message: "Book Retrieved Successfully", book });
+  } catch (err) {
+    res.status(500).json({ message: "Server Error", error: err.message });
+  }
+});
+
+//delete single book
+router.delete("/delete/:id", protect, async (req, res) => {
+  try {
+    const bookId = req.params.id;
+    const book = await Book.findByIdAndDelete(bookId);
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+    res.json({ message: "Book deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting book:", err);
+    res.status(500).json({ message: "Server Error", error: err.message });
   }
 });
 
