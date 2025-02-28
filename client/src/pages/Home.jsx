@@ -81,7 +81,7 @@ function Home() {
                 src={
                   book.image?.startsWith("http")
                     ? book.image
-                    : `http://localhost:5000${book.image}`
+                    : `http://localhost${book.image}`
                 }
                 alt={book.title}
                 className="w-full h-48 object-cover"
