@@ -11,6 +11,7 @@ function Home() {
   const role = getUserRole();
   const userData = getUserData();
   console.log(role);
+  console.log(userData);
   useEffect(() => {
     const fetchBooks = async () => {
       try {
@@ -53,8 +54,21 @@ function Home() {
 
   return (
     <div className="container mx-auto p-6">
+      {userData ? (
+        <div className="flex flex-col items-center justify-center">
+          <h2 className="text-center text-3xl font-bold mb-4">
+            Welcome, {userData.name}
+          </h2>
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center">
+          <h2 className="text-center text-3xl font-bold mb-4">
+            Welcome, Guest
+          </h2>
+        </div>
+      )}
       <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-        {userData.name}, Discover Your Next Favorite Book 📚
+        Discover Your Next Favorite Book 📚
       </h1>
 
       {role === "admin" && (

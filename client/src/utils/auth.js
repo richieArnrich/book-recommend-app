@@ -13,11 +13,15 @@ export const getUserRole = () => {
 };
 
 export const getUserData = () => {
-  const user = localStorage.getItem("user");
-  if (!user) return null; // No user means no user logged in
+  const token = localStorage.getItem("token");
+  if (!token) return null; // No token means no user logged in
+
   try {
+    const user = localStorage.getItem("user");
+    if (!user) return null; // No user means no user logged in
     return JSON.parse(user);
   } catch (err) {
     console.error("Error parsing user data:", err);
+    return null;
   }
 };

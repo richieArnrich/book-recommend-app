@@ -17,6 +17,7 @@ function Header() {
   // Logout function
   const handleLogout = () => {
     localStorage.removeItem("token"); // Remove token
+    localStorage.removeItem("user");
     setIsLoggedIn(false);
     setIsMenuOpen(false); // Close menu on logout
     navigate("/login"); // Redirect to login
